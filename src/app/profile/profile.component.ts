@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { DbService } from '../services/db.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,7 @@ import { DbService } from '../services/db.service';
 export class ProfileComponent implements OnInit {
   username: string = "";
   name: string = "";
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router:Router) { }
   ngOnInit(): void {
     this.username = this.authService.currentUser.username;
     this.name = this.authService.currentUser.name;
@@ -18,5 +19,6 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     this.authService.deleteToken();
+    this.router.navigate(['/home']);
   }
 }

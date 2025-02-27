@@ -20,7 +20,7 @@ export class LoginComponent {
   postData(formData:any){
     this.authService.login(formData.value.username, formData.value.password)
     .then((value)=>{
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/profile/my-events']);
       
     })
     .catch((error)=>{

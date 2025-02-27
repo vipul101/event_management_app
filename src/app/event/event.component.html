@@ -10,12 +10,13 @@
                     <p>{{event.auther}}</p>
                     <p>{{event.start_date | date}}</p>
                     <p>{{event.description}}</p>
-                    <p>{{event.price}}</p>
-                    <p>{{event.is_free}}</p>
-                    <p>{{event.is_online}}</p>
-                    <p>{{event.location}}</p>
-                    <p>{{event.category_id}}</p>
-                    <button class="btn btn-success">Enroll</button>
+                    <p *ngIf="!event.is_free">₹{{event.price}}</p>
+                    <p *ngIf="event.is_free">Free</p>
+                    <p *ngIf="event.is_online">Event is online</p>
+                    <p *ngIf="!event.is_online">Location: {{event.location}}</p>
+                    <p></p>
+                    <button class="btn btn-success" *ngIf="event.auther != this.username && !isEnrolled" (click)="enroll()">Subscribe</button>
+                    <button class="btn btn-danger" *ngIf="event.auther != this.username && isEnrolled" (click)="unenroll()">Unsubscribe</button>
                 </div>
             </div>
         </div>

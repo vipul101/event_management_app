@@ -63,7 +63,43 @@ export class DbService {
 
   public async getEventById(id:number){
     return await lastValueFrom(
-      this.httpClient.get<any>(this.baseUri + '/events/' + id)
+      this.httpClient.get<any>(this.baseUri + '/events/id/' + id)
+    ).then(value=>{
+      return value;
+    })
+  }
+
+  public async enrollEvent(id:number){
+    const header = this.createHeader();
+    return await lastValueFrom(
+      this.httpClient.post<any>(this.baseUri + '/events/enroll/' + id, {}, { headers: header })
+    ).then(value=>{
+      return value;
+    })
+  }
+
+  public async getMyTickets(){
+    const header = this.createHeader();
+    return await lastValueFrom(
+      this.httpClient.get<any>(this.baseUri + '/events/mytickets', { headers: header })
+    ).then(value=>{
+      return value;
+    })
+  }
+
+  public async isEnrolled(id:number){
+    const header = this.createHeader();
+    return await lastValueFrom(
+      this.httpClient.get<any>(this.baseUri + '/events/isenrolled/' + id, { headers: header })
+    ).then(value=>{
+      return value;
+    })
+  }
+
+  public async unenrollEvent(id:number){
+    const header = this.createHeader();
+    return await lastValueFrom(
+      this.httpClient.post<any>(this.baseUri + '/events/unenroll/' + id, {}, { headers: header })
     ).then(value=>{
       return value;
     })

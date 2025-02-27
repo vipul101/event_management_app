@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { lastValueFrom } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Observable, of } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user';
 
@@ -9,6 +9,8 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class AuthService {
+  private authStatus = new BehaviorSubject<boolean>(false);
+  authStatus$ = this.authStatus.asObservable();
   private readonly baseUri:string = environment.apiUrl;
   private jwtToken: string = '';
   currentUser: User = {
@@ -53,22 +55,21 @@ export class AuthService {
 
   setToken(token: string) {
     localStorage.setItem('event', token);
+    this.authStatus.next(true);
   }
   getToken() {
     return localStorage.getItem('event');
   }
   deleteToken() {
     localStorage.removeItem('event');
+    this.authStatus.next(false);
   }
-  isLoggedIn() {
+
+  isLoggedIn(){
     const usertoken = this.getToken();
     if (usertoken != null) {
       return true;
     }
     return false;
-  }
-
-  logout(){
-    localStorage.removeItem('event');
   }
 }

@@ -19,6 +19,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MyEventsComponent } from './my-events/my-events.component';
 import { MyTicketsComponent } from './my-tickets/my-tickets.component';
 import { EventComponent } from './event/event.component';
+import { MyEventTileComponent } from './my-event-tile/my-event-tile.component';
+import { MyEventDetailsComponent } from './my-event-details/my-event-details.component';
+import { VideoStreamComponent } from './video-stream/video-stream.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { EventComponent } from './event/event.component';
     TagsComponent,
     MyEventsComponent,
     MyTicketsComponent,
-    EventComponent
+    EventComponent,
+    MyEventTileComponent,
+    MyEventDetailsComponent,
+    VideoStreamComponent
   ],
   imports: [
     BrowserModule,
